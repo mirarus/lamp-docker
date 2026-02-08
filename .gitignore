@@ -1,0 +1,16 @@
+# ===== Environment / Secrets =====
+.env
+
+# ===== Runtime directories =====
+www/
+sql/
+data/
+logs/
+
+# ===== IDE / OS =====
+.idea/
+.vscode/
+*.swp
+*.swo
+Thumbs.db
+.DS_Store

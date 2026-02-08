@@ -1,0 +1,34 @@
+<?php
+$cfg['ExecTimeLimit'] = 300;
+$cfg['MemoryLimit']  = '512M';
+$cfg['UploadDir'] = '';
+$cfg['SaveDir']   = '';
+
+/* Server host (localhost - single container) */
+$cfg['Servers'][1]['host'] = '127.0.0.1';
+
+/* Disable root login */
+$cfg['Servers'][1]['AllowRoot'] = false;
+
+/* Configuration storage (control user) */
+$cfg['Servers'][1]['controluser'] = 'pma';
+$cfg['Servers'][1]['controlpass'] = 'pmapass';
+$cfg['Servers'][1]['pmadb'] = 'phpmyadmin';
+$cfg['Servers'][1]['bookmarktable'] = 'pma__bookmark';
+$cfg['Servers'][1]['relation'] = 'pma__relation';
+$cfg['Servers'][1]['table_info'] = 'pma__table_info';
+$cfg['Servers'][1]['table_coords'] = 'pma__table_coords';
+$cfg['Servers'][1]['pdf_pages'] = 'pma__pdf_pages';
+$cfg['Servers'][1]['column_info'] = 'pma__column_info';
+$cfg['Servers'][1]['history'] = 'pma__history';
+$cfg['Servers'][1]['tracking'] = 'pma__tracking';
+$cfg['Servers'][1]['userconfig'] = 'pma__userconfig';
+$cfg['Servers'][1]['recent'] = 'pma__recent';
+$cfg['Servers'][1]['favorite'] = 'pma__favorite';
+$cfg['Servers'][1]['users'] = 'pma__users';
+$cfg['Servers'][1]['usergroups'] = 'pma__usergroups';
+$cfg['Servers'][1]['navigationhiding'] = 'pma__navigationhiding';
+$cfg['Servers'][1]['savedsearches'] = 'pma__savedsearches';
+$cfg['Servers'][1]['central_columns'] = 'pma__central_columns';
+$cfg['Servers'][1]['designer_settings'] = 'pma__designer_settings';
+$cfg['Servers'][1]['export_templates'] = 'pma__export_templates';
