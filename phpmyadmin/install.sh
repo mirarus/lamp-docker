@@ -2,7 +2,7 @@
 # phpMyAdmin installation
 set -e
 
-PMA_VERSION="5.2.1"
+PMA_VERSION="5.2.3"
 
 curl -sSL "https://files.phpmyadmin.net/phpMyAdmin/${PMA_VERSION}/phpMyAdmin-${PMA_VERSION}-all-languages.tar.gz" \
     | tar xz -C /opt
