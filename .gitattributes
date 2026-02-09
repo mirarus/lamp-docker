@@ -1,0 +1,8 @@
+*.sh text eol=lf
+*.conf text eol=lf
+*.cnf text eol=lf
+redis.conf text eol=lf
+*.ini text eol=lf
+*.inc.php text eol=lf
+entrypoint.sh text eol=lf
+Dockerfile text eol=lf

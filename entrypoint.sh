@@ -4,6 +4,7 @@ set -e
 PMA_ENABLED="${PMA_ENABLED:-true}"
 PMA_ADMIN_USER="${PMA_ADMIN_USER:-pma_admin}"
 PMA_ADMIN_PASS="${PMA_ADMIN_PASS:-Pma@dmin2026}"
+REDIS_ENABLED="${REDIS_ENABLED:-true}"
 FTP_ENABLED="${FTP_ENABLED:-false}"
 FTP_USER="${FTP_USER:-dev}"
 FTP_PASS="${FTP_PASS:-dev123}"
@@ -14,6 +15,15 @@ if [ "$PMA_ENABLED" = "false" ]; then
     echo "[entrypoint] phpMyAdmin disabled."
 else
     a2enconf phpmyadmin 2>/dev/null || true
+fi
+
+# ===== Redis toggle =====
+if [ "$REDIS_ENABLED" = "true" ]; then
+    sed -i '/\[program:redis\]/,/^$/{s/autostart=false/autostart=true/}' \
+        /etc/supervisor/conf.d/lamp.conf
+    echo "[entrypoint] Redis enabled (127.0.0.1:6379)."
+else
+    echo "[entrypoint] Redis disabled."
 fi
 
 # ===== FTP toggle =====
@@ -75,11 +85,18 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
 EOSQL
 
     # Run init SQL files (sorted order)
-    # Database, user and table creation is handled entirely by these SQL files
+    # Files starting with digits (00-init.sql) run without a DB context
+    # Other files use the filename as database name (e.g. myapp.sql -> USE myapp)
     for f in /docker-entrypoint-initdb.d/*.sql; do
         if [ -f "$f" ]; then
-            echo "[entrypoint] Loading SQL: $(basename $f)"
-            mysql --socket=/run/mysqld/mysqld.sock -u root < "$f"
+            BASENAME="$(basename "$f" .sql)"
+            if echo "$BASENAME" | grep -qE '^[0-9]'; then
+                echo "[entrypoint] Loading SQL: $(basename $f) (no DB)"
+                mysql --socket=/run/mysqld/mysqld.sock -u root < "$f"
+            else
+                echo "[entrypoint] Loading SQL: $(basename $f) -> DB: $BASENAME"
+                mysql --socket=/run/mysqld/mysqld.sock -u root "$BASENAME" < "$f"
+            fi
         fi
     done
 
