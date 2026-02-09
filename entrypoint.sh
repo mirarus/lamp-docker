@@ -74,8 +74,8 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
 
         -- phpMyAdmin configuration storage
         CREATE DATABASE IF NOT EXISTS \`phpmyadmin\`;
-        CREATE USER IF NOT EXISTS 'pma'@'%' IDENTIFIED BY 'pmapass';
-        GRANT SELECT, INSERT, UPDATE, DELETE ON \`phpmyadmin\`.* TO 'pma'@'%';
+        CREATE USER IF NOT EXISTS 'pma'@'localhost' IDENTIFIED BY 'Pma!Ctrl@2026#Sec';
+        GRANT SELECT, INSERT, UPDATE, DELETE ON \`phpmyadmin\`.* TO 'pma'@'localhost';
 
         -- phpMyAdmin admin user
         CREATE USER IF NOT EXISTS '${PMA_ADMIN_USER}'@'%' IDENTIFIED BY '${PMA_ADMIN_PASS}';
@@ -83,6 +83,12 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
 
         FLUSH PRIVILEGES;
 EOSQL
+
+    # Import phpMyAdmin configuration storage tables
+    if [ -f /opt/phpmyadmin/sql/create_tables.sql ]; then
+        echo "[entrypoint] Importing phpMyAdmin storage tables..."
+        mysql --socket=/run/mysqld/mysqld.sock -u root < /opt/phpmyadmin/sql/create_tables.sql
+    fi
 
     # Run init SQL files (sorted order)
     # Files starting with digits (00-init.sql) run without a DB context

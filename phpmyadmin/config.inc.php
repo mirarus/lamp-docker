@@ -1,8 +1,14 @@
 <?php
+/* Cookie encryption key (min 32 chars) */
+$cfg['blowfish_secret'] = 'kJ8v#mP2xL9nQ4wR7tY0uA3sD6fG1hZbN5c';
+
 $cfg['ExecTimeLimit'] = 300;
 $cfg['MemoryLimit']  = '512M';
 $cfg['UploadDir'] = '';
 $cfg['SaveDir']   = '';
+
+/* Temp directory for uploads */
+$cfg['TempDir'] = '/opt/phpmyadmin/tmp';
 
 /* Server host (localhost - single container) */
 $cfg['Servers'][1]['host'] = '127.0.0.1';
@@ -12,7 +18,7 @@ $cfg['Servers'][1]['AllowRoot'] = false;
 
 /* Configuration storage (control user) */
 $cfg['Servers'][1]['controluser'] = 'pma';
-$cfg['Servers'][1]['controlpass'] = 'pmapass';
+$cfg['Servers'][1]['controlpass'] = 'Pma!Ctrl@2026#Sec';
 $cfg['Servers'][1]['pmadb'] = 'phpmyadmin';
 $cfg['Servers'][1]['bookmarktable'] = 'pma__bookmark';
 $cfg['Servers'][1]['relation'] = 'pma__relation';
