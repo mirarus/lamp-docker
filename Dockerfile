@@ -67,7 +67,8 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 # ===== Log directories =====
 RUN mkdir -p /var/log/apache2 /var/log/mysql /var/log/php /var/log/ftp /var/log/phpmyadmin /var/log/redis \
     && chown mysql:mysql /var/log/mysql \
-    && chown redis:redis /var/log/redis
+    && chown redis:redis /var/log/redis \
+    && chown www-data:www-data /var/log/php
 
 # ===== PHP config =====
 COPY ./php/*.ini /etc/php/${PHP_VERSION}/fpm/conf.d/

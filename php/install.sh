@@ -60,6 +60,13 @@ echo "pm.max_requests = 500" >> "$POOL_CONF"
 echo "pm.process_idle_timeout = 10s" >> "$POOL_CONF"
 echo "request_terminate_timeout = 60s" >> "$POOL_CONF"
 
+# PHP-FPM log settings
+echo "php_admin_value[error_log] = /var/log/php/error.log" >> "$POOL_CONF"
+echo "php_admin_flag[log_errors] = on" >> "$POOL_CONF"
+echo "slowlog = /var/log/php/slow.log" >> "$POOL_CONF"
+echo "request_slowlog_timeout = 5s" >> "$POOL_CONF"
+echo "catch_workers_output = yes" >> "$POOL_CONF"
+
 # PHP-FPM listen address (localhost for single container)
 sed -i 's|^listen = .*|listen = 127.0.0.1:9000|' "$POOL_CONF"
 
