@@ -34,7 +34,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
 
 # ===== Base packages + Sury PHP repo =====
 RUN apt-get update && apt-get install -y --no-install-recommends \
-        ca-certificates curl gnupg lsb-release supervisor procps \
+        ca-certificates curl wget gnupg lsb-release supervisor procps \
     && curl -sSL https://packages.sury.org/php/apt.gpg | gpg --dearmor -o /usr/share/keyrings/sury-php.gpg \
     && echo "deb [signed-by=/usr/share/keyrings/sury-php.gpg] https://packages.sury.org/php/ bullseye main" \
         > /etc/apt/sources.list.d/sury-php.list \
