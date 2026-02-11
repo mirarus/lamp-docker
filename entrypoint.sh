@@ -3,8 +3,7 @@ set -e
 
 WEB_SERVER="${WEB_SERVER:-apache}"
 PMA_ENABLED="${PMA_ENABLED:-true}"
-PMA_ADMIN_USER="${PMA_ADMIN_USER:-pma_admin}"
-PMA_ADMIN_PASS="${PMA_ADMIN_PASS:-Pma@dmin2026}"
+PMA_PASS="${PMA_PASS:-Pma@dmin2026}"
 REDIS_ENABLED="${REDIS_ENABLED:-true}"
 FTP_ENABLED="${FTP_ENABLED:-false}"
 FTP_USER="${FTP_USER:-dev}"
@@ -94,10 +93,12 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
         DROP DATABASE IF EXISTS test;
         DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';
 
-        -- phpMyAdmin configuration storage + admin user
+        -- phpMyAdmin configuration storage + pma user
         CREATE DATABASE IF NOT EXISTS \`phpmyadmin\`;
-        CREATE USER IF NOT EXISTS '${PMA_ADMIN_USER}'@'%' IDENTIFIED BY '${PMA_ADMIN_PASS}';
-        GRANT ALL PRIVILEGES ON *.* TO '${PMA_ADMIN_USER}'@'%' WITH GRANT OPTION;
+        SET PASSWORD FOR 'pma'@'localhost' = PASSWORD('${PMA_PASS}');
+        GRANT ALL PRIVILEGES ON *.* TO 'pma'@'localhost' WITH GRANT OPTION;
+        SET PASSWORD FOR 'pma'@'%' = PASSWORD('${PMA_PASS}');
+        GRANT ALL PRIVILEGES ON *.* TO 'pma'@'%' WITH GRANT OPTION;
 
         FLUSH PRIVILEGES;
 EOSQL

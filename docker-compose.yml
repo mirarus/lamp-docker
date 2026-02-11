@@ -32,8 +32,7 @@ services:
     environment:
       WEB_SERVER: ${WEB_SERVER:-apache}
       PMA_ENABLED: ${PMA_ENABLED:-true}
-      PMA_ADMIN_USER: ${PMA_ADMIN_USER:-pma_admin}
-      PMA_ADMIN_PASS: ${PMA_ADMIN_PASS:-Pma@dmin2026}
+      PMA_PASS: ${PMA_PASS:-Pma@dmin2026}
       REDIS_ENABLED: ${REDIS_ENABLED:-true}
       FTP_ENABLED: ${FTP_ENABLED:-false}
       FTP_USER: ${FTP_USER:-dev}

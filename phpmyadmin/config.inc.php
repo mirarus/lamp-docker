@@ -23,8 +23,8 @@ $cfg['Servers'][1]['AllowRoot'] = false;
 
 
 /* Configuration storage */
-$cfg['Servers'][1]['controluser'] = getenv('PMA_ADMIN_USER');
-$cfg['Servers'][1]['controlpass'] = getenv('PMA_ADMIN_PASS');
+$cfg['Servers'][1]['controluser'] = 'pma';
+$cfg['Servers'][1]['controlpass'] = getenv('PMA_PASS') ?: 'Pma@dmin2026';
 $cfg['Servers'][1]['pmadb'] = 'phpmyadmin';
 $cfg['Servers'][1]['bookmarktable'] = 'pma__bookmark';
 $cfg['Servers'][1]['relation'] = 'pma__relation';
