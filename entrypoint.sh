@@ -95,8 +95,9 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
 
         -- phpMyAdmin configuration storage + pma user
         CREATE DATABASE IF NOT EXISTS \`phpmyadmin\`;
-        SET PASSWORD FOR 'pma'@'localhost' = PASSWORD('${PMA_PASS}');
-        GRANT ALL PRIVILEGES ON *.* TO 'pma'@'localhost' WITH GRANT OPTION;
+        CREATE USER IF NOT EXISTS 'pma'@'%' IDENTIFIED BY '${PMA_PASS}';
+        SET PASSWORD FOR 'pma'@'%' = PASSWORD('${PMA_PASS}');
+        GRANT ALL PRIVILEGES ON *.* TO 'pma'@'%' WITH GRANT OPTION;
 
         FLUSH PRIVILEGES;
 EOSQL
