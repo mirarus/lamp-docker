@@ -76,6 +76,8 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
         CREATE DATABASE IF NOT EXISTS \`phpmyadmin\`;
         CREATE USER IF NOT EXISTS 'pma'@'localhost' IDENTIFIED BY 'Pma!Ctrl@2026#Sec';
         GRANT SELECT, INSERT, UPDATE, DELETE ON \`phpmyadmin\`.* TO 'pma'@'localhost';
+        CREATE USER IF NOT EXISTS 'pma'@'127.0.0.1' IDENTIFIED BY 'Pma!Ctrl@2026#Sec';
+        GRANT SELECT, INSERT, UPDATE, DELETE ON \`phpmyadmin\`.* TO 'pma'@'127.0.0.1';
 
         -- phpMyAdmin admin user
         CREATE USER IF NOT EXISTS '${PMA_ADMIN_USER}'@'%' IDENTIFIED BY '${PMA_ADMIN_PASS}';

@@ -16,6 +16,7 @@ $cfg['Servers'][1]['host'] = '127.0.0.1';
 /* Disable root login */
 $cfg['Servers'][1]['AllowRoot'] = false;
 
+
 /* Configuration storage (control user) */
 $cfg['Servers'][1]['controluser'] = 'pma';
 $cfg['Servers'][1]['controlpass'] = 'Pma!Ctrl@2026#Sec';
