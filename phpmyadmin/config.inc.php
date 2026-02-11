@@ -17,9 +17,9 @@ $cfg['Servers'][1]['host'] = '127.0.0.1';
 $cfg['Servers'][1]['AllowRoot'] = false;
 
 
-/* Configuration storage (control user) */
-$cfg['Servers'][1]['controluser'] = 'pma';
-$cfg['Servers'][1]['controlpass'] = 'Pma!Ctrl@2026#Sec';
+/* Configuration storage (uses the same admin user from env) */
+$cfg['Servers'][1]['controluser'] = getenv('PMA_ADMIN_USER') ?: 'pma_admin';
+$cfg['Servers'][1]['controlpass'] = getenv('PMA_ADMIN_PASS') ?: 'Pma@dmin2026';
 $cfg['Servers'][1]['pmadb'] = 'phpmyadmin';
 $cfg['Servers'][1]['bookmarktable'] = 'pma__bookmark';
 $cfg['Servers'][1]['relation'] = 'pma__relation';

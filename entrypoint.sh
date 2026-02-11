@@ -72,14 +72,8 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
         DROP DATABASE IF EXISTS test;
         DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';
 
-        -- phpMyAdmin configuration storage
+        -- phpMyAdmin configuration storage + admin user
         CREATE DATABASE IF NOT EXISTS \`phpmyadmin\`;
-        CREATE USER IF NOT EXISTS 'pma'@'localhost' IDENTIFIED BY 'Pma!Ctrl@2026#Sec';
-        GRANT SELECT, INSERT, UPDATE, DELETE ON \`phpmyadmin\`.* TO 'pma'@'localhost';
-        CREATE USER IF NOT EXISTS 'pma'@'127.0.0.1' IDENTIFIED BY 'Pma!Ctrl@2026#Sec';
-        GRANT SELECT, INSERT, UPDATE, DELETE ON \`phpmyadmin\`.* TO 'pma'@'127.0.0.1';
-
-        -- phpMyAdmin admin user
         CREATE USER IF NOT EXISTS '${PMA_ADMIN_USER}'@'%' IDENTIFIED BY '${PMA_ADMIN_PASS}';
         GRANT ALL PRIVILEGES ON *.* TO '${PMA_ADMIN_USER}'@'%' WITH GRANT OPTION;
 
