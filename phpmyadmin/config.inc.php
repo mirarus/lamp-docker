@@ -15,8 +15,8 @@ $cfg['GZipDump'] = true;
 $cfg['BZipDump'] = true;
 $cfg['ZipDump']  = true;
 
-/* Server host (localhost - single container) */
-$cfg['Servers'][1]['host'] = '127.0.0.1';
+/* Server host (Unix socket - single container) */
+$cfg['Servers'][1]['host'] = 'localhost';
 
 /* Disable root login */
 $cfg['Servers'][1]['AllowRoot'] = false;
