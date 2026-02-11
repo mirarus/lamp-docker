@@ -3,7 +3,7 @@
 set -e
 
 apt-get install -y --no-install-recommends \
-    apache2 libapache2-mod-fcgid libapache2-mod-brotli
+    apache2 libapache2-mod-fcgid brotli
 
 # Enable required modules
 a2enmod proxy proxy_fcgi rewrite headers deflate brotli expires setenvif
