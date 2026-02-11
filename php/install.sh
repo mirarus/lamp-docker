@@ -10,7 +10,7 @@ echo "[install] Installing PHP ${V} FPM..."
 PACKAGES="php${V}-fpm php${V}-mysql php${V}-gd php${V}-zip \
     php${V}-mbstring php${V}-xml php${V}-curl \
     php${V}-opcache php${V}-apcu php${V}-redis \
-    php${V}-intl php${V}-bcmath \
+    php${V}-intl php${V}-bcmath php${V}-bz2 \
     unzip"
 
 # php-json is separate only for PHP < 8.0

@@ -1,6 +1,7 @@
 #!/bin/bash
 set -e
 
+WEB_SERVER="${WEB_SERVER:-apache}"
 PMA_ENABLED="${PMA_ENABLED:-true}"
 PMA_ADMIN_USER="${PMA_ADMIN_USER:-pma_admin}"
 PMA_ADMIN_PASS="${PMA_ADMIN_PASS:-Pma@dmin2026}"
@@ -9,12 +10,33 @@ FTP_ENABLED="${FTP_ENABLED:-false}"
 FTP_USER="${FTP_USER:-dev}"
 FTP_PASS="${FTP_PASS:-dev123}"
 
+# ===== Web server toggle (Apache / OpenLiteSpeed) =====
+if [ "$WEB_SERVER" = "litespeed" ]; then
+    # Disable Apache, enable OpenLiteSpeed
+    sed -i '/\[program:apache2\]/,/^$/{s/autostart=true/autostart=false/}' \
+        /etc/supervisor/conf.d/lamp.conf
+    sed -i '/\[program:openlitespeed\]/,/^$/{s/autostart=false/autostart=true/}' \
+        /etc/supervisor/conf.d/lamp.conf
+    echo "[entrypoint] Web server: OpenLiteSpeed"
+else
+    echo "[entrypoint] Web server: Apache"
+fi
+
 # ===== phpMyAdmin toggle =====
 if [ "$PMA_ENABLED" = "false" ]; then
-    a2disconf phpmyadmin 2>/dev/null || true
+    if [ "$WEB_SERVER" = "litespeed" ]; then
+        # Remove phpMyAdmin context from OLS vhost config
+        sed -i '/# ===== phpMyAdmin Context =====/,/^}/d' \
+            /usr/local/lsws/conf/vhosts/app/vhconf.conf 2>/dev/null || true
+    else
+        a2disconf phpmyadmin 2>/dev/null || true
+    fi
     echo "[entrypoint] phpMyAdmin disabled."
 else
-    a2enconf phpmyadmin 2>/dev/null || true
+    if [ "$WEB_SERVER" != "litespeed" ]; then
+        a2enconf phpmyadmin 2>/dev/null || true
+    fi
+    echo "[entrypoint] phpMyAdmin enabled."
 fi
 
 # ===== Redis toggle =====

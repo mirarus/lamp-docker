@@ -10,6 +10,11 @@ $cfg['SaveDir']   = '';
 /* Temp directory for uploads */
 $cfg['TempDir'] = '/opt/phpmyadmin/tmp';
 
+/* Import / Export compression support */
+$cfg['GZipDump'] = true;
+$cfg['BZipDump'] = true;
+$cfg['ZipDump']  = true;
+
 /* Server host (localhost - single container) */
 $cfg['Servers'][1]['host'] = '127.0.0.1';
 
@@ -17,9 +22,9 @@ $cfg['Servers'][1]['host'] = '127.0.0.1';
 $cfg['Servers'][1]['AllowRoot'] = false;
 
 
-/* Configuration storage (uses the same admin user from env) */
-$cfg['Servers'][1]['controluser'] = getenv('PMA_ADMIN_USER') ?: 'pma_admin';
-$cfg['Servers'][1]['controlpass'] = getenv('PMA_ADMIN_PASS') ?: 'Pma@dmin2026';
+/* Configuration storage */
+$cfg['Servers'][1]['controluser'] = getenv('PMA_ADMIN_USER');
+$cfg['Servers'][1]['controlpass'] = getenv('PMA_ADMIN_PASS');
 $cfg['Servers'][1]['pmadb'] = 'phpmyadmin';
 $cfg['Servers'][1]['bookmarktable'] = 'pma__bookmark';
 $cfg['Servers'][1]['relation'] = 'pma__relation';

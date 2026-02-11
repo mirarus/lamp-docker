@@ -3,10 +3,10 @@
 set -e
 
 apt-get install -y --no-install-recommends \
-    apache2 libapache2-mod-fcgid
+    apache2 libapache2-mod-fcgid libapache2-mod-brotli
 
 # Enable required modules
-a2enmod proxy proxy_fcgi rewrite headers deflate expires setenvif
+a2enmod proxy proxy_fcgi rewrite headers deflate brotli expires setenvif
 a2dissite 000-default
 
 # Security hardening

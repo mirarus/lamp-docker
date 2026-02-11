@@ -1,6 +1,7 @@
 ####################################################
 # All-in-One LAMP (single image)
 # Usage: docker compose up -d --build
+# Web server: WEB_SERVER=apache (default) or litespeed
 ####################################################
 services:
   app:
@@ -13,6 +14,7 @@ services:
     restart: always
     ports:
       - "80:80"
+      - "7080:7080"                                # OLS admin panel
       - "3306:3306"
       - "6379:6379"
       - "21:21"
@@ -21,12 +23,14 @@ services:
       - ./sql:/docker-entrypoint-initdb.d          # SQL init files
       - ./data:/var/lib/mysql                      # DB data (persistent)
       - ./logs/apache:/var/log/apache2             # Apache logs
+      - ./logs/litespeed:/usr/local/lsws/logs      # OpenLiteSpeed logs
       - ./logs/php:/var/log/php                    # PHP logs
       - ./logs/mariadb:/var/log/mysql              # MariaDB logs
       - ./logs/redis:/var/log/redis                # Redis logs
       - ./logs/ftp:/var/log/ftp                    # FTP logs
       - ./logs/phpmyadmin:/var/log/phpmyadmin      # phpMyAdmin logs
     environment:
+      WEB_SERVER: ${WEB_SERVER:-apache}
       PMA_ENABLED: ${PMA_ENABLED:-true}
       PMA_ADMIN_USER: ${PMA_ADMIN_USER:-pma_admin}
       PMA_ADMIN_PASS: ${PMA_ADMIN_PASS:-Pma@dmin2026}
